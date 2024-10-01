@@ -20,6 +20,8 @@ namespace AGDATAUITesting.PageObjects
         private IWebElement LetsGetStartedButton => driver.FindElement(By.XPath("//a[contains(text(),\"Let's Get Started\")]"));
         private IWebElement PageHeader => driver.FindElement(By.XPath("//h1[contains(text(),'GET IN TOUCH WITH US')]"));
 
+        private IList<IWebElement> ValuesElements => driver.FindElements(By.XPath("//div[@class='col box one-fourth']//h3"));
+
         public void ClickCompanySubMenu()
         {
             CompanySubMenu.Click();
@@ -40,6 +42,23 @@ namespace AGDATAUITesting.PageObjects
             {
                 return false;
             }
+        }
+
+        public List<string> GetValuesList()
+        {
+            List<string> valuesList = new List<string>();
+
+            // Loop through the web elements and add the text to the list
+            foreach (var element in ValuesElements)
+            {
+                string text = element.Text;
+                if (!string.IsNullOrWhiteSpace(text)) // Ensure we are not adding empty strings
+                {
+                    valuesList.Add(text.Trim());
+                }
+            }
+
+            return valuesList; // Return the extracted list of values
         }
     }
 }
