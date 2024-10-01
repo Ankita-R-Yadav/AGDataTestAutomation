@@ -28,10 +28,18 @@ namespace AGDATAUITesting
             driver.Navigate().GoToUrl("https://www.agdata.com/");
             homePage.ClickCompanyMenu();
             companyPage.ClickCompanySubMenu();
+           
+            List<string> valuesList = companyPage.GetValuesList();
+            Console.WriteLine("Extracted Values from the AGDATA Company Page:");
+            foreach (var value in valuesList)
+            {
+                Console.WriteLine(value);
+            }
             companyPage.ClickLetsGetStartedButton();
 
             Assert.IsTrue(companyPage.IsPageHeaderDisplayed(), "'GET IN TOUCH WITH US' header is not displayed.");
         }
+
 
         [TestCleanup]
         public void CloseBrowser()
